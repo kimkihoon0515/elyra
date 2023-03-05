@@ -75,7 +75,7 @@ class FileOpBase(ABC):
         import minio
         from minio.credentials import providers
 
-        region = 'ap-northeast-2'
+        region = "ap-northeast-2"
 
         self.filepath = kwargs["filepath"]
         self.input_params = kwargs or {}
