@@ -75,6 +75,8 @@ class FileOpBase(ABC):
         import minio
         from minio.credentials import providers
 
+        region='ap-northeast-2'
+
         self.filepath = kwargs["filepath"]
         self.input_params = kwargs or {}
         self.cos_endpoint = urlparse(self.input_params.get("cos-endpoint"))
@@ -103,7 +105,7 @@ class FileOpBase(ABC):
             )
 
         # get minio client
-        self.cos_client = minio.Minio(self.cos_endpoint.netloc, secure=False, credentials=cred_provider, region='ap-northeast-2')
+        self.cos_client = minio.Minio(self.cos_endpoint.netloc, secure=False, credentials=cred_provider, region=region)
 
     @abstractmethod
     def execute(self) -> None:
