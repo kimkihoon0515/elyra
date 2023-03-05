@@ -103,7 +103,7 @@ class FileOpBase(ABC):
             )
 
         # get minio client
-        self.cos_client = minio.Minio(self.cos_endpoint.netloc, secure=False, credentials=cred_provider)
+        self.cos_client = minio.Minio(self.cos_endpoint.netloc, secure=False, credentials=cred_provider,region='ap-northeast-2')
 
     @abstractmethod
     def execute(self) -> None:
