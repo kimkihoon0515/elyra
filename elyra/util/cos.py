@@ -93,7 +93,7 @@ class CosClient(LoggingConfigurable):
         # Infer secure from the endpoint's scheme.
         self.secure = self.endpoint.scheme == "https"
 
-        region='ap-northeast-2'
+        region = 'ap-northeast-2'
 
         # get minio client
         self.client = minio.Minio(self.endpoint.netloc, secure=False, credentials=cred_provider, region=region)
