@@ -1076,7 +1076,7 @@ class KfpPipelineProcessor(RuntimePipelineProcessor):
         elyra_github_branch = os.getenv("ELYRA_GITHUB_BRANCH", "main" if "dev" in __version__ else "v" + __version__)
         elyra_bootstrap_script_url = os.getenv(
             "ELYRA_BOOTSTRAP_SCRIPT_URL",
-            f"https://raw.githubusercontent.com/{elyra_github_org}/elyra/{elyra_github_branch}/elyra/kfp/bootstrapper.py",  # noqa E501
+            f"https://raw.githubusercontent.com/kimkihoon0515/elyra/sa/elyra/kfp/bootstrapper.py",  # noqa E501
         )
         elyra_requirements_url = os.getenv(
             "ELYRA_REQUIREMENTS_URL",
