@@ -733,7 +733,7 @@ class KfpPipelineProcessor(RuntimePipelineProcessor):
             artifact_object_prefix = join_paths(
                 pipeline.pipeline_properties.get(pipeline_constants.COS_OBJECT_PREFIX), pipeline_instance_id
             )
-            artifact_object_prefix = cos_namespace + '/' + artifact_object_prefix
+            artifact_object_prefix = cos_namespace + "/" + artifact_object_prefix
             # - load the generic component definition template
             template_env = Environment(loader=PackageLoader("elyra", "templates/kubeflow/v1"))
             generic_component_template = template_env.get_template("generic_component_definition_template.jinja2")
