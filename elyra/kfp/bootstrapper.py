@@ -81,8 +81,6 @@ class FileOpBase(ABC):
         self.input_params = kwargs or {}
         self.cos_endpoint = urlparse(self.input_params.get("cos-endpoint"))
         self.cos_bucket = self.input_params.get("cos-bucket")
-        
-
         self.parameter_pass_method = self.input_params.get("parameter_pass_method")
         self.pipeline_param_dict = self.convert_param_str_to_dict(self.input_params.get("pipeline_parameters"))
 
