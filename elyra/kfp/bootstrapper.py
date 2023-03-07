@@ -251,6 +251,7 @@ class FileOpBase(ABC):
 
         # Define HREF for COS bucket:
         # <COS_URL>/<BUCKET_NAME>/<COS_DIRECTORY>
+        # fix_path
         bucket_url = urljoin(
             urlunparse(self.cos_endpoint), f"{self.cos_bucket}/{self.input_params.get('cos-directory', '')}/"
         )
@@ -322,6 +323,7 @@ class FileOpBase(ABC):
         wildcards = ["*", "?"]
         return bool(any(c in filename for c in wildcards))
 
+    # fix_path
     def process_output_file(self, output_file):
         """Puts the file to object storage.  Handles wildcards and directories."""
 

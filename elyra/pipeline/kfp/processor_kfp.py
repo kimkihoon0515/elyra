@@ -171,6 +171,7 @@ class KfpPipelineProcessor(RuntimePipelineProcessor):
         public_api_endpoint = runtime_configuration.metadata.get("public_api_endpoint", api_endpoint)
         api_username = runtime_configuration.metadata.get("api_username")
         api_password = runtime_configuration.metadata.get("api_password")
+        # use for cos_namespace
         user_namespace = runtime_configuration.metadata.get("user_namespace")
         workflow_engine = WorkflowEngineType.get_instance_by_value(runtime_configuration.metadata.get("engine", "argo"))
         if workflow_engine == WorkflowEngineType.TEKTON and not TektonClient:
@@ -444,6 +445,7 @@ class KfpPipelineProcessor(RuntimePipelineProcessor):
             os_path = join_paths(
                 pipeline.pipeline_properties.get(pipeline_constants.COS_OBJECT_PREFIX), pipeline_instance_id
             )
+            # fix_path
             object_storage_path = f"/{cos_bucket}/{os_path}"
         else:
             object_storage_url = None
@@ -725,6 +727,7 @@ class KfpPipelineProcessor(RuntimePipelineProcessor):
             cos_secret = runtime_configuration.metadata.get("cos_secret")
             cos_endpoint = runtime_configuration.metadata["cos_endpoint"]
             cos_bucket = runtime_configuration.metadata.get("cos_bucket")
+            # fix_path
             artifact_object_prefix = join_paths(
                 pipeline.pipeline_properties.get(pipeline_constants.COS_OBJECT_PREFIX), pipeline_instance_id
             )
