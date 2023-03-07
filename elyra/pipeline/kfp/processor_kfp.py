@@ -446,7 +446,7 @@ class KfpPipelineProcessor(RuntimePipelineProcessor):
                 pipeline.pipeline_properties.get(pipeline_constants.COS_OBJECT_PREFIX), pipeline_instance_id
             )
             # fix_path
-            object_storage_path = f"/{cos_bucket}/{os_path}"
+            object_storage_path = f"/{cos_bucket}/{user_namespace}/{os_path}"
         else:
             object_storage_url = None
             object_storage_path = None
@@ -727,10 +727,13 @@ class KfpPipelineProcessor(RuntimePipelineProcessor):
             cos_secret = runtime_configuration.metadata.get("cos_secret")
             cos_endpoint = runtime_configuration.metadata["cos_endpoint"]
             cos_bucket = runtime_configuration.metadata.get("cos_bucket")
+            # cos_namespace added
+            cos_namespace = runtime_configuration.metadata.get("user_namespace")
             # fix_path
             artifact_object_prefix = join_paths(
                 pipeline.pipeline_properties.get(pipeline_constants.COS_OBJECT_PREFIX), pipeline_instance_id
             )
+            artifact_object_prefix = cos_namespace + '/' + artifact_object_prefix
             # - load the generic component definition template
             template_env = Environment(loader=PackageLoader("elyra", "templates/kubeflow/v1"))
             generic_component_template = template_env.get_template("generic_component_definition_template.jinja2")
