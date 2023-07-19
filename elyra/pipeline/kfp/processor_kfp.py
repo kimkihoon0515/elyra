@@ -1076,12 +1076,11 @@ class KfpPipelineProcessor(RuntimePipelineProcessor):
         elyra_github_branch = os.getenv("ELYRA_GITHUB_BRANCH", "main" if "dev" in __version__ else "v" + __version__)
         elyra_bootstrap_script_url = os.getenv(
             "ELYRA_BOOTSTRAP_SCRIPT_URL",
-            f"https://raw.githubusercontent.com/kimkihoon0515/elyra/sa/elyra/kfp/bootstrapper.py",  # noqa E501
+            f"https://gitlab.hmc.co.kr/api/v4/projects/738/repository/files/elyra%2Fkfp%2Fbootstrapper.py/raw?ref=main",  # noqa E501
         )
         elyra_requirements_url = os.getenv(
             "ELYRA_REQUIREMENTS_URL",
-            f"https://raw.githubusercontent.com/{elyra_github_org}/"
-            f"elyra/{elyra_github_branch}/etc/generic/requirements-elyra.txt",
+            f"https://gitlab.hmc.co.kr/api/v4/projects/738/repository/files/etc%2Fgeneric%2Frequirements-elyra.txt/raw?ref=main" # noqa E501
         )
 
         if is_crio_runtime:
@@ -1089,7 +1088,7 @@ class KfpPipelineProcessor(RuntimePipelineProcessor):
             container_python_path = CRIO_VOL_PYTHON_PATH
             python_pip_config_url = os.getenv(
                 "ELYRA_PIP_CONFIG_URL",
-                f"https://raw.githubusercontent.com/{elyra_github_org}/elyra/{elyra_github_branch}/etc/kfp/pip.conf",
+                f"https://gitlab.hmc.co.kr/api/v4/projects/738/repository/files/etc%2Fkfp%2Fpip.conf/raw?ref=main", # noqa E501
             )
             python_user_lib_path_target = f"--target={CRIO_VOL_PYTHON_PATH}"
         else:
@@ -1101,16 +1100,16 @@ class KfpPipelineProcessor(RuntimePipelineProcessor):
         command_args = [
             f"mkdir -p {container_work_dir} && cd {container_work_dir}",
             f"echo 'Downloading {elyra_bootstrap_script_url}' && "
-            f"curl {common_curl_options} -L {elyra_bootstrap_script_url} --output bootstrapper.py",
+            f"curl --header 'PRIVATE-TOKEN: NJoZxEPJ6pW8GpyynDaY' {common_curl_options} -L {elyra_bootstrap_script_url} --output bootstrapper.py", # noqa E501
             f"echo 'Downloading {elyra_requirements_url}' && "
-            f"curl {common_curl_options} -L {elyra_requirements_url} --output requirements-elyra.txt",
+            f"curl --header 'PRIVATE-TOKEN: NJoZxEPJ6pW8GpyynDaY' {common_curl_options} -L {elyra_requirements_url} --output requirements-elyra.txt", # noqa E501
         ]
 
         if is_crio_runtime:
             command_args.append(
                 f"mkdir {container_python_path} && cd {container_python_path} && "
                 f"echo 'Downloading {python_pip_config_url}' && "
-                f"curl {common_curl_options} -L {python_pip_config_url} --output pip.conf && cd .. && "
+                f"curl --header 'PRIVATE-TOKEN: NJoZxEPJ6pW8GpyynDaY' {common_curl_options} -L {python_pip_config_url} --output pip.conf && cd .. && " # noqa E501
             )
 
         bootstrapper_command = [
